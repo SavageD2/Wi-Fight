@@ -294,7 +294,7 @@ nodemon
 
 ---
 
-## 💡 Suggestions d'améliorations
+## 💡 Work in Progress - DLC (parce que Early Access)
 
 ### Interface
 - [x] ✅ **Affichage skills amélioré** - IMPLÉMENTÉ avec boîtes visuelles
