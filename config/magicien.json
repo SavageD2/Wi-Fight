@@ -1,7 +1,7 @@
 {
-  "nom": "🔮 Magicien",
-  "classe": "Wizard",
-  "description": "Invocateur de familiers avec récupération de mana conditionnelle",
+  "nom": "🔮 Magicien - Magicien Blanc",
+  "classe": "Magicien (Magicien Blanc)",
+  "description": "Invocateur de familiers avec récupération de mana conditionnelle. Inspiré du Magicien Blanc de Black Desert Online",
   "stats": {
     "hp_max": 500,
     "mp_max": 450,

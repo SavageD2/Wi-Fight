@@ -1,7 +1,7 @@
 {
-  "nom": "🧙 Sage",
-  "classe": "Sage",
-  "description": "Maître des arts mystiques avec récupération de mana automatique",
+  "nom": "🧙 Sage - Roi Sorcier",
+  "classe": "Sage (Roi Sorcier)",
+  "description": "Maître des arts mystiques avec récupération de mana automatique. Inspiré du Roi Sorcier de Black Desert Online",
   "stats": {
     "hp_max": 500,
     "mp_max": 450,
