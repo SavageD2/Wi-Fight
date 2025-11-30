@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 Module menu - Gestion des menus principaux du jeu
 """
@@ -11,181 +9,182 @@ from src.utils import ascii_art
 
 
 class Menu:
-    """Gestionnaire des menus du jeu"""
+    """Gestionnaire du menu du jeu"""
     
     @staticmethod
-    def afficher_titre():
+    def display_title():
         """Affiche le titre du jeu"""
-        ascii_art.afficher_logo()
+        ascii_art.display_logo()
     
     @staticmethod
-    def menu_principal() -> str:
-        """Affiche le menu principal et retourne le choix"""
+    def main_menu() -> str:
+        """Affiche le menu principal"""
         print("\n" + "="*70)
         print("🎯 MENU PRINCIPAL")
         print("="*70)
         print("\n1. 🎮 Choisir mon personnage et jouer")
-        print("2. 📖 Voir les détails des personnages")
+        print("2. 📖 Voir les détails du personnage")
         print("3. 🎲 Modes de combat avancés")
         print("4. 🚪 Quitter")
         print("\n" + "="*70)
         
         while True:
-            choix = input("\nVotre choix (1-4): ").strip()
-            if choix in ['1', '2', '3', '4']:
-                return choix
-            print("❌ Choix invalide!")
+            choice = input("\nVotre choix (1-4) : ").strip()
+            if choice in ['1', '2', '3', '4']:
+                return choice
+            print("❌ Choix invalide !")
     
     @staticmethod
-    def choisir_personnage() -> str:
-        """Affiche le menu de sélection de personnage"""
+    def choose_character() -> str:
+        """Affiche le menu de sélection du personnage"""
         print("\n" + "="*70)
         print("🎭 SÉLECTION DU PERSONNAGE")
         print("="*70)
         
         print("\n1. 🧙 Sage")
-        ascii_art.afficher_skin_personnage('sage', mini=True)
+        ascii_art.display_character_skin('sage', mini=True)
         print("   • Maître des arts mystiques")
-        print("   • Récupère +10 MP à chaque compétence utilisée")
+        print("   • Récupère +10 MP à chaque utilisation de compétence")
         
         print("\n2. 🔮 Magicien")
-        ascii_art.afficher_skin_personnage('magicien', mini=True)
+        ascii_art.display_character_skin('magicien', mini=True)
         print("   • Invocateur de familiers élémentaires")
         print("   • Récupère +10 MP lors de l'invocation d'un familier")
         
         print("\n" + "="*70)
         
         while True:
-            choix = input("\nVotre choix (1-2): ").strip()
-            if choix == '1':
+            choice = input("\nVotre choix (1-2) : ").strip()
+            if choice == '1':
                 return 'sage'
-            elif choix == '2':
+            elif choice == '2':
                 return 'magicien'
-            print("❌ Choix invalide!")
+            print("❌ Choix invalide !")
     
     @staticmethod
-    def demander_nom_joueur(classe: str) -> str:
-        """Demande le nom du joueur après choix de classe"""
-        icone = "🧙" if classe == 'sage' else "🔮"
-        print(f"\n✨ Vous avez choisi: {icone} {classe.title()}")
+    def ask_player_name(player_class: str) -> str:
+        """Demande le nom du joueur après le choix de la classe"""
+        icon = "🧙" if player_class == 'sage' else "🔮"
+        print(f"\n✨ Vous avez choisi : {icon} {player_class.title()}")
         
         while True:
-            nom = input(f"\n📝 Quel est votre nom, {classe.title()}? ").strip()
-            if nom:
-                return nom
-            print("❌ Le nom ne peut pas être vide!")
+            name = input(f"\n📝 Quel est votre nom, {player_class.title()} ? ").strip()
+            if name:
+                return name
+            print("❌ Le nom ne peut pas être vide !")
     
     @staticmethod
-    def afficher_details_personnage(classe: str):
-        """Affiche les détails complets d'un personnage"""
-        if classe == 'sage':
-            perso = Sage()
-            icone = "🧙"
+    def show_character_details(player_class: str):
+        """Affiche les détails complets du personnage"""
+        if player_class == 'sage':
+            character = Sage()
+            icon = "🧙"
         else:
-            perso = Magicien()
-            icone = "🔮"
+            character = Magicien()
+            icon = "🔮"
         
         print("\n" + "="*70)
-        print(f"📖 DÉTAILS - {icone} {classe.upper()}")
+        print(f"📖 DETAILS - {icon} {player_class.upper()}")
         print("="*70)
         
         # Stats de base
-        print(f"\n📊 STATISTIQUES DE BASE:")
-        print(f"   ❤️  HP: {perso.hp_max}")
-        print(f"   💙 MP: {perso.mp_max}")
-        print(f"   ⚔️  ATK: {perso.attack}")
-        print(f"   🛡️  DEF: {perso.defense}")
+        print(f"\n📊 STATS DE BASE :")
+        print(f"   ❤️  HP : {character.hp_max}")
+        print(f"   💙 MP : {character.mp_max}")
+        print(f"   ⚔️  ATQ : {character.attack}")
+        print(f"   🛡️  DEF : {character.defense}")
         
         # Passif
-        print(f"\n✨ CAPACITÉ PASSIVE:")
-        if classe == 'sage':
-            print(f"   🔮 Récupération Mystique")
-            print(f"   • +10 MP à chaque fois qu'une compétence est utilisée")
+        print(f"\n✨ CAPACITÉ PASSIVE :")
+        if player_class == 'sage':
+            print(f"   🔮 Récupération mystique")
+            print(f"   • +10 MP à chaque utilisation de compétence")
         else:
-            print(f"   🐾 Maître des Familiers")
+            print(f"   🐾 Maître des familiers")
             print(f"   • +10 MP lors de l'invocation d'un familier")
             print(f"   • Invocations automatiques avec certaines compétences")
         
-        # Compétences
-        print(f"\n⚔️  COMPÉTENCES DISPONIBLES:")
+        # Skills
+        print(f"\n⚔️  COMPÉTENCES DISPONIBLES :")
         print("="*70)
         
-        for i, skill in enumerate(perso.skills, 1):
-            icone_skill = skill.get('icone', '⚔️')
-            nom = skill['nom']
-            type_skill = skill['type'].replace('_', ' ').title()
-            mp_cost = skill['mp_cost']
+        for i, skill in enumerate(character.skills, 1):
+            skill_icon = skill.get('icone', '⚔️')
+            name = skill['nom']
+            skill_type = skill['type'].replace('_', ' ').title()
+            mp_cost = skill.get('cout_mp', skill.get('mp_cost', 0))
             cooldown = skill.get('cooldown', 0)
             desc = skill['description']
             
-            print(f"\n{i}. {icone_skill} {nom} [{type_skill}]")
-            print(f"   💙 Coût: {mp_cost} MP")
+            print(f"\n{'─'*70}")
+            print(f"{i}. {skill_icon} {name} [{skill_type}]")
+            print(f"   💙 Coût : {mp_cost} MP")
             if cooldown > 0:
                 print(f"   ⏱️  Cooldown: {cooldown} tours")
             print(f"   📝 {desc}")
             
             # Détails des effets
             if 'degats' in skill:
-                print(f"   💥 Dégâts: {skill['degats']}")
+                print(f"   💥 Dégâts : {skill['degats']}")
             
             if 'heal' in skill:
-                print(f"   💚 Soin: {skill['heal']} HP")
+                print(f"   💚 Soin : {skill['heal']} HP")
             
             if 'effets' in skill:
-                for effet in skill['effets']:
-                    if effet['type'] == 'buff':
-                        print(f"   🔺 Buff: +{effet['valeur']} {effet['stat']} ({effet['duree']} tours)")
-                    elif effet['type'] == 'debuff':
-                        print(f"   🔻 Debuff: {effet['valeur']} {effet['stat']} ({effet['duree']} tours)")
+                for effect in skill['effets']:
+                    if effect['type'] == 'buff':
+                        print(f"   🔺 Buff: +{effect['valeur']} {effect['stat']} ({effect['duree']} tours)")
+                    elif effect['type'] == 'debuff':
+                        print(f"   🔻 Debuff: {effect['valeur']} {effect['stat']} ({effect['duree']} tours)")
             
             if 'familier' in skill:
                 fam = skill['familier']
-                print(f"   🐾 Invoque: {fam['nom']} ({fam['element']}) - {fam['degats']} dmg/tour ({fam['duree']} tours)")
+                print(f"   🐾 Invocations : {fam['nom']} ({fam['element']}) - {fam['degats']} dégâts/tour ({fam['duree']} tours)")
             
             if 'zone' in skill:
                 zone = skill['zone']
-                print(f"   🌊 Zone: {zone['degats']} dmg/tour pendant {zone['duree']} tours")
+                print(f"   🌊 Zone: {zone['degats']} dégâts/tour pendant {zone['duree']} tours")
         
         print("\n" + "="*70)
         input("\n⏎ Appuyez sur Entrée pour revenir au menu...")
     
     @staticmethod
-    def afficher_details_tous():
+    def show_all_details():
         """Affiche les détails de tous les personnages"""
-        Menu.afficher_details_personnage('sage')
-        Menu.afficher_details_personnage('magicien')
+        Menu.show_character_details('sage')
+        Menu.show_character_details('magicien')
     
     @staticmethod
-    def menu_modes_combat() -> str:
+    def battle_modes_menu() -> str:
         """Affiche le sous-menu des modes de combat"""
         print("\n" + "="*70)
         print("🎲 MODES DE COMBAT")
         print("="*70)
-        print("\n1. 👤 vs 🤖 Joueur vs IA (PvE) - Par défaut")
-        print("2. 🤖 vs 🤖 IA vs IA (Auto)")
-        print("3. 👤 vs 👤 Joueur vs Joueur (PvP)")
+        print("\n1. 👤 vs 🤖 Joueur contre IA (PvE) - Par défaut")
+        print("2. 🤖 vs 🤖 IA contre IA (Auto)")
+        print("3. 👤 vs 👤 Joueur contre Joueur (PvP)")
         print("4. 🔙 Retour au menu principal")
         print("\n" + "="*70)
         
         while True:
-            choix = input("\nVotre choix (1-4): ").strip()
-            if choix in ['1', '2', '3', '4']:
-                return choix
-            print("❌ Choix invalide!")
+            choice = input("\nVotre choix (1-4) : ").strip()
+            if choice in ['1', '2', '3', '4']:
+                return choice
+            print("❌ Choix invalide !")
     
     @staticmethod
-    def confirmer_combat_pve(nom_joueur: str, classe_joueur: str) -> bool:
-        """Confirme le début du combat PvE"""
-        icone = "🧙" if classe_joueur == 'sage' else "🔮"
-        classe_ia = "Magicien" if classe_joueur == 'sage' else "Sage"
-        icone_ia = "🔮" if classe_joueur == 'sage' else "🧙"
+    def confirm_pve_battle(player_name: str, player_class: str) -> bool:
+        """Confirme le début d'une bataille PvE"""
+        icon = "🧙" if player_class == 'sage' else "🔮"
+        ai_class = "Magicien" if player_class == 'sage' else "Sage"
+        ai_icon = "🔮" if player_class == 'sage' else "🧙"
         
         print("\n" + "="*70)
-        print("⚔️  COMBAT PvE")
+        print("⚔️  BATAILLE PvE")
         print("="*70)
-        print(f"\n👤 Joueur: {nom_joueur} ({icone} {classe_joueur.title()})")
-        print(f"🤖 Adversaire: IA ({icone_ia} {classe_ia})")
+        print(f"\n👤 Joueur : {player_name} ({icon} {player_class.title()})")
+        print(f"🤖 Adversaire : IA ({ai_icon} {ai_class})")
         print("\n" + "="*70)
         
-        choix = input("\n🎮 Commencer le combat? (o/n): ").strip().lower()
-        return choix == 'o'
+        choice = input("\n🎮 Démarrer la bataille ? (o/n) : ").strip().lower()
+        return choice == 'o'

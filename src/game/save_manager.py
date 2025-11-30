@@ -28,29 +28,29 @@ class SaveManager:
         if not os.path.exists(self.save_dir):
             os.makedirs(self.save_dir)
     
-    def sauvegarder_partie(self, data_partie: Dict) -> str:
+    def save_game(self, game_data: Dict) -> str:
         """
-        Sauvegarde une partie terminée
+        Saves a completed game
         
         Args:
-            data_partie: Dictionnaire contenant les données de la partie
+            game_data: Dictionary containing game data
             
         Returns:
-            Le chemin du fichier de sauvegarde
+            Path to save file
         """
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"combat_{timestamp}.json"
         filepath = os.path.join(self.save_dir, filename)
         
-        # Ajouter métadonnées
-        data_partie['metadata'] = {
+        # Add metadata
+        game_data['metadata'] = {
             'date': datetime.now().isoformat(),
             'timestamp': timestamp,
             'version': '2.0.0'
         }
         
         with open(filepath, 'w', encoding='utf-8') as f:
-            json.dump(data_partie, f, indent=2, ensure_ascii=False)
+            json.dump(game_data, f, indent=2, ensure_ascii=False)
         
         return filepath
     

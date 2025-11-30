@@ -1,0 +1,8 @@
+{
+  "watch": ["src", "config", "*.py"],
+  "ext": "py,json",
+  "ignore": ["saves/*", "*.pyc", "__pycache__", "*.pyo", ".git"],
+  "exec": "python main.py",
+  "restartable": "rs",
+  "verbose": true
+}

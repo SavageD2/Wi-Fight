@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 Module de l'intelligence artificielle
 """
@@ -23,86 +21,94 @@ class AIPlayer:
         self.difficulte = difficulte
         self.strategie_agressive = random.random() > 0.5  # 50% chance d'être agressif
     
-    def choisir_skill(self, skills_disponibles: List[Dict], adversaire) -> Dict:
+    def choose_skill(self, available_skills: List[Dict], opponent) -> Dict:
         """
-        Choisit intelligemment le skill à utiliser
+        Choisit une compétence à utiliser en fonction de la situation
         
         Args:
-            skills_disponibles: Liste des skills que le personnage peut utiliser
-            adversaire: Le personnage adverse
+            available_skills: Liste des compétences que le personnage peut utiliser
+            opponent: Personnage adversaire
             
         Returns:
-            Le skill choisi
+            Compétence choisie
         """
-        hp_percent = self.personnage.hp_actuel / self.personnage.hp_max
-        mp_actuel = self.personnage.mp_actuel
-        adversaire_hp_percent = adversaire.hp_actuel / adversaire.hp_max
+        hp_percent = self.personnage.current_hp / self.personnage.hp_max
+        current_mp = self.personnage.current_mp
+        opponent_hp_percent = opponent.current_hp / opponent.hp_max
         
-        # Priorité 1: Heal si HP bas
+        # 1ère priorité : Soigner si les PV sont bas
         if hp_percent < 0.3:
-            skills_heal = [s for s in skills_disponibles if s['type'] == 'heal' and s['mp_cost'] <= mp_actuel]
-            if skills_heal:
-                return random.choice(skills_heal)
+            heal_skills = [s for s in available_skills if s['type'] == 'heal' and s.get('cout_mp', 0) <= current_mp]
+            if heal_skills:
+                return random.choice(heal_skills)
         
-        # Priorité 2: Ultime si adversaire affaibli et MP suffisant
-        if adversaire_hp_percent < 0.4 and mp_actuel > 140:
-            skills_ultime = [s for s in skills_disponibles if s['type'] == 'attaque_ultime' and s['mp_cost'] <= mp_actuel]
-            if skills_ultime:
-                return random.choice(skills_ultime)
+        # 2nd priorité: Utilise l'attaque ultime si l'adversaire est faible
+        if opponent_hp_percent < 0.4 and current_mp > 140:
+            ultimate_skills = [s for s in available_skills if s['type'] == 'attaque_ultime' and s.get('cout_mp', 0) <= current_mp]
+            if ultimate_skills:
+                return random.choice(ultimate_skills)
         
-        # Priorité 3: Buff si pas déjà actif (à implémenter avec système de buffs)
-        if random.random() < 0.2:  # 20% de chance de buff
-            skills_buff = [s for s in skills_disponibles if s['type'] == 'buff' and s['mp_cost'] <= mp_actuel]
-            if skills_buff:
-                return random.choice(skills_buff)
+        # 3ème priorité : Buff si pas déjà actif
+        if random.random() < 0.2:  # 20% chance de buff
+            buff_skills = [s for s in available_skills if s['type'] == 'buff' and s.get('cout_mp', 0) <= current_mp]
+            if buff_skills:
+                return random.choice(buff_skills)
         
-        # Priorité 4: Debuff pour affaiblir l'adversaire
-        if random.random() < 0.15 and adversaire_hp_percent > 0.5:
-            skills_debuff = [s for s in skills_disponibles if s['type'] == 'debuff' and s['mp_cost'] <= mp_actuel]
-            if skills_debuff:
-                return random.choice(skills_debuff)
+        # 4ème priorité : Debuff pour affaiblir l'adversaire
+        if random.random() < 0.15 and opponent_hp_percent > 0.5:
+            debuff_skills = [s for s in available_skills if s['type'] == 'debuff' and s.get('cout_mp', 0) <= current_mp]
+            if debuff_skills:
+                return random.choice(debuff_skills)
         
-        # Priorité 5: Évasion si HP critique
+        # 5ème priorité : Évasion si les PV sont critiques
         if hp_percent < 0.2 and random.random() < 0.3:
-            skills_evasion = [s for s in skills_disponibles if s['type'] == 'evasion' and s['mp_cost'] <= mp_actuel]
-            if skills_evasion:
-                return random.choice(skills_evasion)
+            evasion_skills = [s for s in available_skills if s['type'] == 'evasion' and s.get('cout_mp', 0) <= current_mp]
+            if evasion_skills:
+                return random.choice(evasion_skills)
         
-        # Priorité 6: Attaque moyenne ou légère
-        if self.strategie_agressive or mp_actuel > 100:
+        # 6ème priorité : Attaque moyenne ou légère
+        if self.strategie_agressive or current_mp > 100:
             # Préfère les attaques moyennes
-            skills_attaque = [s for s in skills_disponibles if s['type'] in ['attaque_moyenne', 'attaque_legere'] and s['mp_cost'] <= mp_actuel]
+            attack_skills = [s for s in available_skills if s['type'] in ['attaque_moyenne', 'attaque_legere'] and s.get('cout_mp', 0) <= current_mp]
         else:
-            # Préfère les attaques légères pour économiser MP
-            skills_attaque = [s for s in skills_disponibles if s['type'] == 'attaque_legere' and s['mp_cost'] <= mp_actuel]
+            # Préfère les attaques légères pour économiser du MP
+            attack_skills = [s for s in available_skills if s['type'] == 'attaque_legere' and s.get('cout_mp', 0) <= current_mp]
         
-        if skills_attaque:
+        if attack_skills:
             # Choisir en fonction de la difficulté
             if self.difficulte == "difficile":
-                # IA difficile choisit le meilleur skill
-                return max(skills_attaque, key=lambda s: s.get('degats_base', 0))
+                # IA difficile choisit la meilleure compétence
+                return max(attack_skills, key=lambda s: s.get('degats_base', 0))
             elif self.difficulte == "facile":
-                # IA facile choisit aléatoirement
-                return random.choice(skills_attaque)
+                # IA facile choisit au hasard
+                return random.choice(attack_skills)
             else:
-                # IA normale: 70% meilleur skill, 30% aléatoire
+                # IA normale : 70% meilleure compétence, 30% aléatoire
                 if random.random() < 0.7:
-                    return max(skills_attaque, key=lambda s: s.get('degats_base', 0))
+                    return max(attack_skills, key=lambda s: s.get('degats_base', 0))
                 else:
-                    return random.choice(skills_attaque)
+                    return random.choice(attack_skills)
         
-        # Par défaut: premier skill disponible (attaque de base)
-        skills_utilisables = [s for s in skills_disponibles if s['mp_cost'] <= mp_actuel]
-        return skills_utilisables[0] if skills_utilisables else skills_disponibles[0]
+        # Par défaut : première compétence disponible (attaque de base)
+        usable_skills = [s for s in available_skills if s.get('cout_mp', 0) <= current_mp]
+        if usable_skills:
+            return usable_skills[0]
+        elif available_skills:
+            # Si aucune compétence n'est utilisable avec le MP actuel, retourner la moins chère
+            return min(available_skills, key=lambda s: s.get('cout_mp', 0))
+        else:
+            # Si aucune compétence n'est disponible, retourner None (ne devrait jamais arriver)
+            return None
     
     def ajuster_strategie(self, situation: str):
         """
         Ajuste la stratégie de l'IA en fonction de la situation
         
         Args:
-            situation: 'winning', 'losing', 'equal'
+            Situation: "gagnante" ou "perdante"
         """
-        if situation == "losing":
+        if situation == "perdante":
             self.strategie_agressive = False  # Devenir plus défensif
-        elif situation == "winning":
+        elif situation == "gagnante":
             self.strategie_agressive = True   # Devenir plus agressif
+# Geez que c'est long en vrai XD

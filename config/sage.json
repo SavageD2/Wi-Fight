@@ -12,18 +12,28 @@
   },
   "passif": {
     "type": "recuperation_mana",
-    "valeur": 10,
-    "description": "Récupère +10 MP à chaque utilisation de compétence"
+    "valeur": 20,
+    "description": "Récupère +20 MP à chaque utilisation de compétence"
   },
   "skills": [
+    {
+      "id": "sage_gorbag",
+      "nom": "Récupération de l'ombre",
+      "type": "heal",
+      "icone": "🌑",
+      "cout_mp": 60,
+      "cooldown": 2,
+      "heal": 25,
+      "description": "Gorbag canalise l'ombre pour soigner 5% des PV max (25 HP)"
+    },
     {
       "id": "sage_annihilation",
       "nom": "Annihilation Radieuse",
       "type": "attaque_legere",
       "icone": "✨",
-      "mp_cost": 40,
+      "cout_mp": 40,
       "degats": 20,
-      "cooldown": 3,
+      "cooldown": 2,
       "description": "Attaque légère de lumière radieuse"
     },
     {
@@ -31,7 +41,7 @@
       "nom": "Lance de Sauron",
       "type": "debuff",
       "icone": "🗡️",
-      "mp_cost": 60,
+      "cout_mp": 60,
       "degats": 25,
       "cooldown": 2,
       "description": "Lance maudite qui affaiblit la défense",
@@ -49,7 +59,7 @@
       "nom": "Galvanisation",
       "type": "buff",
       "icone": "⚡",
-      "mp_cost": 70,
+      "cout_mp": 70,
       "cooldown": 3,
       "description": "Renforce l'attaque et la défense",
       "effets": [
@@ -78,7 +88,7 @@
       "nom": "Surcharge d'éclair",
       "type": "buff",
       "icone": "⚡💥",
-      "mp_cost": 80,
+      "cout_mp": 80,
       "cooldown": 4,
       "description": "Augmente les coups critiques et surcharge toutes les compétences",
       "special": "surcharge",
@@ -96,7 +106,7 @@
       "nom": "Dernier recours",
       "type": "evasion",
       "icone": "💨",
-      "mp_cost": 50,
+      "cout_mp": 50,
       "cooldown": 20,
       "description": "Évasion d'urgence pour échapper au danger"
     },
@@ -105,9 +115,9 @@
       "nom": "Tempête de la faille",
       "type": "attaque_lourde",
       "icone": "🌪️",
-      "mp_cost": 100,
+      "cout_mp": 100,
       "degats": 50,
-      "cooldown": 5,
+      "cooldown": 3,
       "description": "Attaque lourde dévastatrice"
     }
   ]

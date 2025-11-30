@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 Module ASCII Art - WiZ-Fight
 Art visuel personnalisé par Savage
@@ -153,68 +151,68 @@ DEFAITE_BANNER = """
 """
 
 
-def afficher_logo():
-    """Affiche le logo WiZ-Fight"""
+def display_logo():
+    """Displays WiZ-Fight logo"""
     print(LOGO_WIZFIGHT)
 
 
-def afficher_ecran_bienvenue():
-    """Affiche l'écran de bienvenue avec présentation du jeu"""
+def display_welcome_screen():
+    """Displays welcome screen with game presentation"""
     print(ECRAN_BIENVENUE)
-    input()  # Attend que l'utilisateur appuie sur Entrée
+    input()  # Wait for user to press Enter
 
 
-def afficher_skin_personnage(classe: str, mini: bool = False):
+def display_character_skin(player_class: str, mini: bool = False):
     """
-    Affiche le skin d'un personnage
+    Displays character skin
     
     Args:
-        classe: 'sage' ou 'magicien'
-        mini: Si True, affiche la version mini
+        player_class: 'sage' or 'magicien'
+        mini: If True, displays mini version
     """
-    if classe.lower() == 'sage':
+    if player_class.lower() == 'sage':
         print(SAGE_MINI if mini else SAGE_SKIN)
-    elif classe.lower() == 'magicien':
+    elif player_class.lower() == 'magicien':
         print(MAGICIEN_MINI if mini else MAGICIEN_SKIN)
 
 
-def afficher_familier(nom: str):
-    """Affiche un familier"""
-    if nom.lower() == 'gorr':
+def display_familier(name: str):
+    """Displays a familiar"""
+    if name.lower() == 'gorr':
         print(FAMILIER_GORR)
-    elif nom.lower() == 'tett':
+    elif name.lower() == 'tett':
         print(FAMILIER_TETT)
 
 
-def afficher_vs(joueur_classe: str, adversaire_classe: str):
-    """Affiche un écran VS entre deux personnages"""
+def display_vs(player_class: str, opponent_class: str):
+    """Displays VS screen between two characters"""
     print("\n")
     print("="*70)
     
-    # Côté gauche - Joueur
-    lignes_joueur = (SAGE_MINI if joueur_classe == 'sage' else MAGICIEN_MINI).split('\n')
-    lignes_adversaire = (SAGE_MINI if adversaire_classe == 'sage' else MAGICIEN_MINI).split('\n')
+    # Left side - Player
+    player_lines = (SAGE_MINI if player_class == 'sage' else MAGICIEN_MINI).split('\n')
+    opponent_lines = (SAGE_MINI if opponent_class == 'sage' else MAGICIEN_MINI).split('\n')
     
-    # Affichage côte à côte
-    max_lines = max(len(lignes_joueur), len(lignes_adversaire))
+    # Side-by-side display
+    max_lines = max(len(player_lines), len(opponent_lines))
     
     for i in range(max_lines):
-        gauche = lignes_joueur[i] if i < len(lignes_joueur) else ""
-        droite = lignes_adversaire[i] if i < len(lignes_adversaire) else ""
+        left = player_lines[i] if i < len(player_lines) else ""
+        right = opponent_lines[i] if i < len(opponent_lines) else ""
         
         if i == max_lines // 2:
-            print(f"{gauche:^25} ⚔️  VS  ⚔️ {droite:^25}")
+            print(f"{left:^25} ⚔️  VS  ⚔️ {right:^25}")
         else:
-            print(f"{gauche:^25}           {droite:^25}")
+            print(f"{left:^25}           {right:^25}")
     
     print("="*70)
 
 
-def afficher_victoire():
-    """Affiche la bannière de victoire"""
+def display_victory():
+    """Displays victory banner"""
     print(VICTOIRE_BANNER)
 
 
-def afficher_defaite():
-    """Affiche la bannière de défaite"""
+def display_defeat():
+    """Displays defeat banner"""
     print(DEFAITE_BANNER)

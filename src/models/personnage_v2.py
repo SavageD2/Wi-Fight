@@ -1,12 +1,9 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 Module définissant la classe abstraite Personnage v2.0
 Avec système de stats étendues, buffs/debuffs, familiers, zones
 """
-
-from abc import ABC, abstractmethod
 import random
+from abc import ABC, abstractmethod
 from typing import Dict, List, Optional
 
 
@@ -14,7 +11,7 @@ class Effet:
     """Classe représentant un effet temporaire (buff/debuff)"""
     
     def __init__(self, type_effet: str, stat: str, valeur: float, duree: int, nom: str = ""):
-        self.type = type_effet  # 'buff' ou 'debuff'
+        self.type = type_effet
         self.stat = stat
         self.valeur = valeur
         self.duree = duree
@@ -139,24 +136,24 @@ class Personnage(ABC):
         return self.__hp_max
     
     @property
-    def hp_actuel(self) -> int:
+    def current_hp(self) -> int:
         return self.__hp_actuel
     
-    @hp_actuel.setter
-    def hp_actuel(self, valeur: int):
-        self.__hp_actuel = max(0, min(valeur, self.__hp_max))
+    @current_hp.setter
+    def current_hp(self, value: int):
+        self.__hp_actuel = max(0, min(value, self.__hp_max))
     
     @property
     def mp_max(self) -> int:
         return self.__mp_max
     
     @property
-    def mp_actuel(self) -> int:
+    def current_mp(self) -> int:
         return self.__mp_actuel
     
-    @mp_actuel.setter
-    def mp_actuel(self, valeur: int):
-        self.__mp_actuel = max(0, min(valeur, self.__mp_max))
+    @current_mp.setter
+    def current_mp(self, value: int):
+        self.__mp_actuel = max(0, min(value, self.__mp_max))
     
     @property
     def attack(self) -> int:
@@ -167,7 +164,7 @@ class Personnage(ABC):
         return self.__defense
     
     @property
-    def niveau(self) -> int:
+    def level(self) -> int:
         return self.__niveau
     
     @property
@@ -187,14 +184,54 @@ class Personnage(ABC):
         return self.__familiers
     
     @property
-    def degats_infliges_total(self) -> int:
+    def total_damage_dealt(self) -> int:
         return self.__degats_infliges_total
     
     @property
-    def coups_critiques(self) -> int:
+    def critical_hits(self) -> int:
         return self.__coups_critiques
     
-    # === MÉTHODES DE GESTION DES STATS ===
+    # ALIAS DES PROPRIÉTÉS
+    
+    @property
+    def hp_actuel(self) -> int:
+        """Alias des pv actuels"""
+        return self.current_hp
+    
+    @hp_actuel.setter
+    def hp_actuel(self, value: int):
+        self.current_hp = value
+    
+    @property
+    def mp_actuel(self) -> int:
+        """Alias des pm actuels"""
+        return self.current_mp
+    
+    @mp_actuel.setter
+    def mp_actuel(self, value: int):
+        self.current_mp = value
+    
+    @property
+    def niveau(self) -> int:
+        """Alias du niveau"""
+        return self.level
+    
+    @property
+    def degats_infliges_total(self) -> int:
+        """Alias des dégâts infligés totaux"""
+        return self.total_damage_dealt
+    
+    @property
+    def coups_critiques(self) -> int:
+        """Alias des coups critiques"""
+        return self.critical_hits
+    
+    @property
+    def est_vivant(self) -> bool:
+        """Alias de is_alive"""
+        return self.is_alive
+    
+    # MÉTHODES DE GESTION DES STATS
     
     def recalculer_stats(self):
         """Recalcule les stats en tenant compte des buffs/debuffs"""
@@ -251,7 +288,7 @@ class Personnage(ABC):
         
         self.recalculer_stats()
     
-    # === MÉTHODES DE GESTION DES FAMILIERS ET ZONES ===
+    # MÉTHODES DE GESTION DES FAMILIERS ET ZONES
     
     def ajouter_familier(self, familier: Familier):
         """Ajoute un familier invoqué"""
@@ -305,60 +342,60 @@ class Personnage(ABC):
         
         self.__zones_effet = [z for z in self.__zones_effet if z.est_active()]
     
-    # === MÉTHODES DE COMBAT ===
+    # MÉTHODES DE COMBAT
     
-    def peut_utiliser_skill(self, skill: Dict) -> bool:
-        """Vérifie si un skill peut être utilisé"""
-        # Vérifier le MP
-        if self.__mp_actuel < skill.get('mp_cost', 0):
+    def can_use_skill(self, skill: Dict) -> bool:
+        """Vérifie si une compétence peut être utilisée"""
+        # Vérifier les PM
+        if self.__mp_actuel < skill.get('cout_mp', 0):
             return False
         
-        # Vérifier le cooldown
+        # Vérifier le cooldown (le temps de recharge)
         skill_id = skill.get('id', skill['nom'])
         if skill_id in self.__cooldowns and self.__cooldowns[skill_id] > 0:
             return False
         
         return True
     
-    def utiliser_skill(self, skill: Dict, adversaire: 'Personnage'):
-        """Utilise un skill sur l'adversaire"""
+    def use_skill(self, skill: Dict, opponent: 'Personnage'):
+        """Utilise une compétence sur l'adversaire"""
         skill_id = skill.get('id', skill['nom'])
-        skill_nom = skill['nom']
+        skill_name = skill['nom']
         skill_type = skill['type']
         
-        # Consommer le MP
-        mp_cost = skill.get('mp_cost', 0)
+        # Consommer les PM
+        mp_cost = skill.get('cout_mp', 0)
         self.__mp_actuel -= mp_cost
         
         # Appliquer le cooldown
         if 'cooldown' in skill and skill['cooldown'] > 0:
             self.__cooldowns[skill_id] = skill['cooldown']
         
-        # Statistiques
-        if skill_nom not in self.__skills_utilises:
-            self.__skills_utilises[skill_nom] = 0
-        self.__skills_utilises[skill_nom] += 1
+        # Stats
+        if skill_name not in self.__skills_utilises:
+            self.__skills_utilises[skill_name] = 0
+        self.__skills_utilises[skill_name] += 1
         
-        # Afficher l'utilisation
-        icone = skill.get('icone', '⚔️')
-        print(f"\n🎯 {self.nom} utilise: {icone} {skill_nom}")
-        print(f"   💙 MP: {self.__mp_actuel}/{self.__mp_max} (-{mp_cost})")
+        # Affichage de l'utilisation
+        icon = skill.get('icone', '⚔️')
+        print(f"\n🎯 {self.nom} utilise : {icon} {skill_name}")
+        print(f"   💙 PM : {self.__mp_actuel}/{self.__mp_max} (-{mp_cost})")
         
-        # Appliquer les effets selon le type
+        # Apply effects based on type
         if skill_type in ['attaque_legere', 'attaque_moyenne', 'attaque_lourde']:
-            self._appliquer_attaque(skill, adversaire)
+            self._appliquer_attaque(skill, opponent)
         elif skill_type == 'heal':
             self._appliquer_heal(skill)
         elif skill_type == 'buff':
             self._appliquer_buff(skill)
         elif skill_type == 'debuff':
-            self._appliquer_debuff(skill, adversaire)
+            self._appliquer_debuff(skill, opponent)
         elif skill_type == 'evasion':
             self._appliquer_evasion(skill)
         elif skill_type == 'invocation':
             self._appliquer_invocation(skill)
         elif skill_type == 'zone':
-            self._appliquer_zone(skill, adversaire)
+            self._appliquer_zone(skill, opponent)
     
     def _appliquer_attaque(self, skill: Dict, adversaire: 'Personnage'):
         """Applique une attaque"""
@@ -367,7 +404,7 @@ class Personnage(ABC):
         # Calcul des dégâts
         degats = degats_base
         
-        # Coup critique?
+        # Coup critique
         chance_crit = 0.15 + (self.__bonus_crit / 100)
         if self.__skills_surchargees:
             chance_crit += 0.30
@@ -495,7 +532,7 @@ class Personnage(ABC):
         else:
             degats_finaux = degats
         
-        self.__hp_actuel -= degats_finaux
+        self.__hp_actuel = max(0, self.__hp_actuel - degats_finaux)
         self.__degats_recus_total += degats_finaux
         
         print(f"   💔 {self.nom} subit {degats_finaux} dégâts! (HP: {self.__hp_actuel}/{self.__hp_max})")
@@ -507,29 +544,37 @@ class Personnage(ABC):
             if self.__cooldowns[skill_id] <= 0:
                 del self.__cooldowns[skill_id]
     
-    def debut_tour(self, adversaire: 'Personnage'):
+    def start_turn(self, opponent: 'Personnage'):
         """Actions au début du tour"""
-        # Attaque des familiers
-        self.attaque_familiers(adversaire)
+        # Régénération passive de MP
+        mp_regen = 15
+        old_mp = self.__mp_actuel
+        self.__mp_actuel = min(self.__mp_actuel + mp_regen, self.__mp_max)
+        if self.__mp_actuel > old_mp:
+            print(f"   💙 {self.__nom} régénère {self.__mp_actuel - old_mp} MP (Régénération passive)")
         
-        # Effets des zones
-        self.mettre_a_jour_zones(adversaire)
+        # Attaques des familiers
+        self.attaque_familiers(opponent)
+        
+        # Effets de zone (AoE)
+        self.mettre_a_jour_zones(opponent)
         
         # Mise à jour des effets
         self.mettre_a_jour_effets()
         self.mettre_a_jour_familiers()
         self.mettre_a_jour_cooldowns()
     
-    def fin_tour(self):
+    def end_turn(self):
         """Actions à la fin du tour"""
         pass
     
-    def est_vivant(self) -> bool:
-        """Vérifie si le personnage est vivant"""
+    @property
+    def is_alive(self) -> bool:
+        """Vérifie si le personnage est en vie"""
         return self.__hp_actuel > 0
     
-    def gagner_niveau(self):
-        """Augmente le niveau et les stats"""
+    def gain_level(self):
+        """Augmente le niveau et les statistiques"""
         self.__niveau += 1
         bonus_stats = 5
         
@@ -538,51 +583,51 @@ class Personnage(ABC):
         self.__attack_base += bonus_stats
         self.__defense_base += bonus_stats
         
-        # Guérison complète
+        # Soins complets - Full heal :)
         self.__hp_actuel = self.__hp_max
         self.__mp_actuel = self.__mp_max
         
-        print(f"\n🎉 {self.nom} monte au niveau {self.__niveau}!")
+        print(f"\n🎉 {self.nom} a atteint le niveau {self.__niveau}!")
         print(f"   +{bonus_stats} à toutes les stats!")
     
-    def afficher_stats(self):
-        """Affiche les stats du personnage"""
+    def display_stats(self):
+        """Affiche les statistiques du personnage"""
         hp_percent = (self.__hp_actuel / self.__hp_max) * 100
         mp_percent = (self.__mp_actuel / self.__mp_max) * 100
         
         # Couleur HP
         if hp_percent > 60:
-            couleur_hp = "\033[92m"
+            color_hp = "\033[92m"
         elif hp_percent > 30:
-            couleur_hp = "\033[93m"
+            color_hp = "\033[93m"
         else:
-            couleur_hp = "\033[91m"
+            color_hp = "\033[91m"
         
-        # Couleur MP
+        # Couleur PM
         if mp_percent > 50:
-            couleur_mp = "\033[94m"
+            color_mp = "\033[94m"
         else:
-            couleur_mp = "\033[95m"
+            color_mp = "\033[95m"
         
         reset = "\033[0m"
         
-        print(f"   {couleur_hp}❤️  HP: {self.__hp_actuel}/{self.__hp_max}{reset}")
-        print(f"   {couleur_mp}💙 MP: {self.__mp_actuel}/{self.__mp_max}{reset}")
-        print(f"   ⚔️  ATK: {self.__attack} | 🛡️  DEF: {self.__defense}")
+        print(f"   {color_hp}❤️  HP: {self.__hp_actuel}/{self.__hp_max}{reset}")
+        print(f"   {color_mp}💙 PM: {self.__mp_actuel}/{self.__mp_max}{reset}")
+        print(f"   ⚔️  ATQ: {self.__attack} | 🛡️  DEF: {self.__defense}")
         print(f"   ⭐ Niveau: {self.__niveau}")
         
-        # Afficher buffs/debuffs actifs
+        # Affiche les buffs/debuffs actifs
         if self.__buffs:
             print(f"   🔺 Buffs: {', '.join([b.nom for b in self.__buffs])}")
         if self.__debuffs:
             print(f"   🔻 Debuffs: {', '.join([d.nom for d in self.__debuffs])}")
         if self.__familiers:
-            print(f"   🐾 Familiers: {', '.join([f.nom for f in self.__familiers])}")
+            print(f"   🐾 Familiars: {', '.join([f.nom for f in self.__familiers])}")
         if self.__zones_effet:
             print(f"   🌊 Zones: {', '.join([z.nom for z in self.__zones_effet])}")
     
-    def get_stats_finales(self) -> Dict:
-        """Retourne les stats finales pour sauvegarde"""
+    def get_final_stats(self) -> Dict:
+        """Retourne les stats finales pour la sauvegarde"""
         return {
             'hp': self.__hp_actuel,
             'hp_max': self.__hp_max,

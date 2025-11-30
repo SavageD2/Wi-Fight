@@ -1,0 +1,17 @@
+{
+  "mode": "Auto",
+  "vainqueur": "IA-Magicien",
+  "perdant": "IA-Sage",
+  "tours": 53,
+  "stats_vainqueur": {
+    "hp": 505,
+    "niveau": 2,
+    "degats_infliges": 105,
+    "coups_critiques": 1
+  },
+  "metadata": {
+    "date": "2025-11-30T19:44:40.618056",
+    "timestamp": "20251130_194440",
+    "version": "2.0.0"
+  }
+}

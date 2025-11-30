@@ -12,16 +12,26 @@
   },
   "passif": {
     "type": "recuperation_mana_familier",
-    "valeur": 10,
-    "description": "Récupère +10 MP lors de l'invocation d'un familier"
+    "valeur": 20,
+    "description": "Récupère +20 MP lors de l'invocation d'un familier"
   },
   "skills": [
+    {
+      "id": "mage_arwenn",
+      "nom": "Bénédiction d'Arwenn",
+      "type": "heal",
+      "icone": "🧚",
+      "cout_mp": 60,
+      "cooldown": 2,
+      "heal": 25,
+      "description": "La fée Arwenn soigne 5% des PV max (25 HP)"
+    },
     {
       "id": "mage_psyche",
       "nom": "Psyche de la sphère d'Aad",
       "type": "buff",
       "icone": "🔵",
-      "mp_cost": 0,
+      "cout_mp": 0,
       "cooldown": 4,
       "description": "Augmente l'attaque, réduit les dégâts et récupère du mana",
       "heal_mp": 80,
@@ -45,7 +55,7 @@
       "nom": "Defense Techtonique",
       "type": "buff",
       "icone": "🛡️",
-      "mp_cost": 60,
+      "cout_mp": 60,
       "cooldown": 3,
       "description": "Crée un mur protecteur qui réduit les dégâts",
       "effets": [
@@ -62,7 +72,7 @@
       "nom": "Invocation Familier",
       "type": "invocation",
       "icone": "🐉",
-      "mp_cost": 80,
+      "cout_mp": 80,
       "cooldown": 5,
       "description": "Invoque un gardien élémentaire",
       "familier_choice": true,
@@ -86,7 +96,7 @@
       "nom": "Innondation toxique",
       "type": "zone",
       "icone": "🌊",
-      "mp_cost": 90,
+      "cout_mp": 90,
       "cooldown": 4,
       "description": "Crée une zone de poison acide au sol",
       "zone": {
@@ -104,7 +114,7 @@
       "nom": "Dernier recours",
       "type": "evasion",
       "icone": "💨",
-      "mp_cost": 50,
+      "cout_mp": 50,
       "cooldown": 20,
       "description": "Évasion d'urgence pour échapper au danger"
     },
@@ -113,9 +123,9 @@
       "nom": "Barrage d'éclair",
       "type": "attaque_legere",
       "icone": "⚡",
-      "mp_cost": 40,
+      "cout_mp": 40,
       "degats": 10,
-      "cooldown": 3,
+      "cooldown": 2,
       "description": "Attaque légère qui invoque automatiquement le Gardien Tett",
       "auto_invocation": {
         "nom": "Gardien Tett",
@@ -129,9 +139,9 @@
       "nom": "Vague de fissure",
       "type": "attaque_lourde",
       "icone": "🌋",
-      "mp_cost": 100,
+      "cout_mp": 100,
       "degats": 50,
-      "cooldown": 5,
+      "cooldown": 3,
       "description": "Attaque lourde qui invoque automatiquement le Gardien Gorr",
       "auto_invocation": {
         "nom": "Gardien Gorr",
