@@ -1,4 +1,4 @@
-# 🎮 WiZ-FIGHT v2.0
+# 🎮 WIZ-FIGHT v2.0
 **Combat Magique Épique** - Projet POO Python par Savage
 
 ---
@@ -14,54 +14,60 @@ WiZ-Fight est un jeu de combat tour par tour mettant en scène deux mages légen
 ## 🧙 Les Personnages
 
 ### **Sage** - Maître des arcanes anciennes
-**Passif:** Récupération de mana automatique +10 MP par skill utilisé
+**Passif:** Récupération de mana automatique **+20 MP** par skill utilisé
 
 **Compétences:**
-1. **Annihilation Radieuse** (attaque légère)
-   - Dégâts: 20 | Coût: 40 MP | Cooldown: 3 tours
+1. **Récupération de l'ombre** (soin) 🌑
+   - Soin: 25 HP (5% HP max) | Coût: 60 MP | Cooldown: 2 tours
 
-2. **Lance de Sauron** (debuff)
+2. **Annihilation Radieuse** (attaque légère) ✨
+   - Dégâts: 20 | Coût: 40 MP | Cooldown: 2 tours
+
+3. **Lance de Sauron** (debuff) 🗡️
    - Dégâts: 25 | Debuff: -24 DEF (3 tours) | Coût: 60 MP | Cooldown: 2 tours
 
-3. **Galvanisation** (buff)
+4. **Galvanisation** (buff) ⚡
    - Buff: +30 ATK, +20 DEF, +5% réduction dégâts (4 tours) | Coût: 70 MP | Cooldown: 3 tours
 
-4. **Surcharge d'éclair** (buff critique)
+5. **Surcharge d'éclair** (buff critique) ⚡💥
    - Buff: +30% coups critiques + surcharge toutes compétences (3 tours) | Coût: 80 MP | Cooldown: 4 tours
 
-5. **Dernier recours** (évasion)
+6. **Dernier recours** (évasion) 💨
    - Esquive totale | Coût: 50 MP | Cooldown: 20 tours
 
-6. **Tempête de la faille** (attaque lourde)
-   - Dégâts: 50 | Coût: 100 MP | Cooldown: 5 tours
+7. **Tempête de la faille** (attaque lourde) 🌪️
+   - Dégâts: 50 | Coût: 100 MP | Cooldown: 3 tours
 
 ---
 
 ### **Magicien** - Invocateur de familiers élémentaires
-**Passif:** Récupération de mana automatique +10 MP lors de l'invocation d'un familier
+**Passif:** Récupération de mana automatique **+20 MP** lors de l'invocation d'un familier
 
 **Compétences:**
-1. **Psyche de la sphère d'Aad** (buff multiple)
+1. **Bénédiction d'Arwenn** (soin) 🧚
+   - Soin: 25 HP (5% HP max) | Coût: 60 MP | Cooldown: 2 tours
+
+2. **Psyche de la sphère d'Aad** (buff multiple) 🔵
    - Buff: +20 ATK, +15% réduction dégâts | Récupère: 80 MP | Coût: 0 MP | Cooldown: 4 tours
 
-2. **Defense Techtonique** (protection)
+3. **Defense Techtonique** (protection) 🛡️
    - Buff: +30% réduction dégâts (3 tours) | Coût: 60 MP | Cooldown: 3 tours
 
-3. **Invocation Familier** (invocation)
+4. **Invocation Familier** (invocation) 🐉
    - Invoque Gardien Gorr (terre) ou Gardien Tett (foudre)
    - Attaque auto: 10 dégâts/tour pendant 6 tours | Coût: 80 MP | Cooldown: 5 tours
 
-4. **Inondation toxique** (zone poison)
+5. **Inondation toxique** (zone poison) 🌊
    - Zone: 15 dégâts/tour pendant 6 tours | Coût: 90 MP | Cooldown: 4 tours
 
-5. **Dernier recours** (évasion)
+6. **Dernier recours** (évasion) 💨
    - Esquive totale | Coût: 50 MP | Cooldown: 20 tours
 
-6. **Barrage d'éclair** (attaque légère + invocation)
-   - Dégâts: 10 | Invoque auto Gardien Tett | Coût: 40 MP | Cooldown: 3 tours
+7. **Barrage d'éclair** (attaque légère + invocation) ⚡
+   - Dégâts: 10 | Invoque auto Gardien Tett | Coût: 40 MP | Cooldown: 2 tours
 
-7. **Vague de fissure** (attaque lourde + invocation)
-   - Dégâts: 50 | Invoque auto Gardien Gorr | Coût: 100 MP | Cooldown: 5 tours
+8. **Vague de fissure** (attaque lourde + invocation) 🌋
+   - Dégâts: 50 | Invoque auto Gardien Gorr | Coût: 100 MP | Cooldown: 3 tours
 
 ---
 
@@ -69,7 +75,7 @@ WiZ-Fight est un jeu de combat tour par tour mettant en scène deux mages légen
 
 | Stat | Valeur | Description |
 |------|--------|-------------|
-| **HP** | 500 | Points de vie |
+| **HP** | 500 | Points de vie (ne peuvent pas descendre en dessous de 0) |
 | **MP** | 450 | Points de mana |
 | **ATK** | 250 | Puissance d'attaque |
 | **DEF** | 300 | Points de défense |
@@ -77,6 +83,10 @@ WiZ-Fight est un jeu de combat tour par tour mettant en scène deux mages légen
 | **Niveau** | 1 | Niveau de départ |
 
 **Progression:** +1 niveau par victoire | +5 à toutes les stats par niveau
+
+**Régénération MP:** 
+- **+15 MP par tour** (régénération passive automatique)
+- **+20 MP** supplémentaires lors de l'utilisation de compétences (Sage) ou invocation (Magicien)
 
 ---
 
@@ -99,8 +109,9 @@ WiZ-Fight est un jeu de combat tour par tour mettant en scène deux mages légen
 
 ```
 Py-Fight/
-├── combat_v2.py              # Point d'entrée principal
-├── run.sh                    # Lanceur rapide
+├── main.py                   # Point d'entrée principal
+├── combat_v2.py              # Logique du jeu
+├── nodemon.json              # Configuration pour développement avec nodemon
 ├── README.md                 # Ce fichier
 │
 ├── src/
@@ -119,14 +130,13 @@ Py-Fight/
 │   │
 │   └── utils/                # Utilitaires
 │       ├── ascii_art.py      # Logo et skins ASCII
-│       ├── input_handler.py  # Gestion des inputs joueur
+│       ├── input_handler.py  # Gestion des inputs joueur (affichage skills amélioré)
 │       ├── menu.py           # Menus du jeu
 │       └── affichage.py      # Affichages divers
 │
 ├── config/                   # Configurations JSON
 │   ├── sage.json            # Stats et skills du Sage
-│   ├── magicien.json        # Stats et skills du Magicien
-│   └── game_config.json     # Config générale
+│   └── magicien.json        # Stats et skills du Magicien
 │
 ├── saves/                    # Sauvegardes des parties
 │   └── combat_*.json        # Historique des combats
@@ -196,7 +206,9 @@ Py-Fight/
 - Sous-menu modes de combat
 
 **`input_handler.py`** - Interface joueur:
-- Sélection des skills avec infos (MP, cooldown, statut)
+- **Affichage skills amélioré** avec boîtes visuelles (┌─│└─)
+- Sélection des skills avec infos détaillées (MP, cooldown, statut)
+- Organisation multi-lignes pour meilleure lisibilité
 - Affichage stats joueur/adversaire
 - Messages de victoire
 
@@ -219,9 +231,12 @@ Py-Fight/
 - [x] Écran de bienvenue immersif
 - [x] Skins ASCII pour personnages
 - [x] Menu avec nom après choix classe
-- [x] Affichage skills simplifié en combat (nom, MP, cooldown)
-- [x] Détails complets accessibles hors combat
+- [x] **Affichage skills amélioré avec boîtes visuelles (┌─│└─)**
+- [x] Affichage skills avec info détaillée (type, MP, cooldown, statut)
+- [x] Organisation multi-lignes pour meilleure lisibilité
+- [x] Séparateurs visuels entre compétences
 - [x] Stats colorées (HP vert/jaune/rouge, MP bleu)
+- [x] Gestion des compétences indisponibles (MP insuffisant / cooldown)
 
 ### ✅ Intelligence Artificielle
 - [x] 3 niveaux de difficulté
@@ -239,13 +254,32 @@ Py-Fight/
 
 ## 🚀 Comment jouer
 
-### Lancement
+### Installation
 ```bash
-# Méthode 1: Directement
-python combat_v2.py
+# Cloner le repository
+git clone https://github.com/SavageD2/Wi-Fight.git
+cd Wi-Fight
 
-# Méthode 2: Avec le script
-./run.sh
+# Aucune dépendance à installer ! Python 3.6+ suffit
+```
+
+### Lancement
+
+#### En production
+```bash
+# Lancer le jeu directement
+python main.py
+```
+
+#### En développement avec nodemon
+```bash
+# Installer nodemon (si pas déjà fait)
+npm install -g nodemon
+
+# Lancer avec rechargement automatique
+nodemon
+
+# Le jeu redémarre automatiquement à chaque modification de fichier .py ou .json
 ```
 
 ### Déroulement
@@ -256,62 +290,14 @@ python combat_v2.py
    - Option 3: Modes avancés (Auto, PvP)
 3. **Sélection personnage** - Sage ou Magicien
 4. **Saisie du nom** - "Quel est votre nom, [classe]?"
-5. **Combat!** - Choisissez vos skills tour par tour
+5. **Combat!** - Choisissez vos skills tour par tour avec affichage détaillé
 
 ---
 
 ## 💡 Suggestions d'améliorations
 
-### 🎨 Affichage des skills (prioritaire)
-**Problème actuel:** Liste simple avec numéros
-
-**Suggestions:**
-
-#### Option 1: Catégorisation par type
-```
-⚔️  ATTAQUES                           🛡️  DÉFENSE
-1. ✨ Annihilation Radieuse (40 MP)   3. ⚡ Galvanisation (70 MP)
-6. 🌪️ Tempête de la faille (100 MP)  5. 💨 Dernier recours (50 MP)
-
-💥 SPÉCIAL
-2. 🗡️ Lance de Sauron (60 MP) [Debuff]
-4. ⚡💥 Surcharge d'éclair (80 MP) [Critique]
-```
-
-#### Option 2: Barres de cooldown visuelles
-```
-1. ✨ Annihilation Radieuse    40 MP  [▓▓▓▓▓▓▓▓▓▓] Prêt!
-2. 🗡️ Lance de Sauron         60 MP  [████░░░░░░] 2 tours
-3. ⚡ Galvanisation            70 MP  [▓▓▓▓▓▓▓▓▓▓] Prêt!
-```
-
-#### Option 3: Affichage compact avec codes couleur
-```
-[1] ✨ Annihilation (40)  [2] 🗡️ Lance (60) ⏳2  [3] ⚡ Galva (70)
-[4] 💥 Surcharge (80)     [5] 💨 Évasion (50) ⏳20  [6] 🌪️ Tempête (100) ⏳4
-```
-
-#### Option 4: Style menu interactif (recommandé)
-```
-╔════════════════ VOS COMPÉTENCES ════════════════╗
-║                                                  ║
-║  ⚔️  ATTAQUES                                    ║
-║  [1] ✨ Annihilation Radieuse       40 MP  ✅    ║
-║  [6] 🌪️ Tempête de la faille       100 MP ✅    ║
-║                                                  ║
-║  🎯 TACTIQUE                                     ║
-║  [2] 🗡️ Lance de Sauron            60 MP  ✅    ║
-║  [3] ⚡ Galvanisation               70 MP  ✅    ║
-║  [4] ⚡💥 Surcharge d'éclair         80 MP  ✅    ║
-║                                                  ║
-║  🛡️  DÉFENSE                                     ║
-║  [5] 💨 Dernier recours             50 MP  ⏳20  ║
-║                                                  ║
-╚══════════════════════════════════════════════════╝
-```
-
 ### Interface
-- [ ] Implémenter affichage skills amélioré
+- [x] ✅ **Affichage skills amélioré** - IMPLÉMENTÉ avec boîtes visuelles
 - [ ] Animations ASCII pour les attaques
 - [ ] Barre de vie graphique (██████░░░░)
 - [ ] Effets visuels pour coups critiques
@@ -362,8 +348,8 @@ degats_finaux = degats_base * (1 - reduction_percent / 100) * (1 - buffs_reducti
 ```
 
 ### Cooldowns
-- Attaques légères: 3 tours
-- Attaques lourdes: 5 tours
+- Attaques légères: **2 tours**
+- Attaques lourdes/ultimes: **3 tours**
 - Dernier recours: 20 tours
 - Autres: 2-4 tours
 
@@ -372,6 +358,8 @@ degats_finaux = degats_base * (1 - reduction_percent / 100) * (1 - buffs_reducti
 - Buffs additionnent avec DEF
 - Familiers: 10 dmg/tour, 6 tours de durée
 - Zones: 15 dmg/tour, 6 tours de durée
+- **HP ne peuvent pas descendre en dessous de 0**
+- **Régénération MP:** +15 MP/tour (passif) + 20 MP (compétences/familiers)
 
 ---
 
@@ -391,4 +379,4 @@ degats_finaux = degats_base * (1 - reduction_percent / 100) * (1 - buffs_reducti
 
 ## 📜 Licence
 
-Projet éducatif - POO Python
+Projet éducatif - POO Python "Pour des raisons légales on ne sait jamais 😉"
