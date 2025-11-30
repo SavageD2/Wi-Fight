@@ -1,0 +1,27 @@
+{
+  "nom": "🧙 Gandalf le Blanc",
+  "description": "Le magicien blanc, défenseur de la Terre du Milieu",
+  "frappes": [
+    {
+      "nom": "Éclair Lumineux",
+      "icone": "⚡",
+      "degats": 15,
+      "xp": 5,
+      "description": "Un éclair de lumière pure"
+    },
+    {
+      "nom": "Bâton de Puissance",
+      "icone": "🪄",
+      "degats": 20,
+      "xp": 8,
+      "description": "Frappe puissante du bâton magique"
+    },
+    {
+      "nom": "Lumière Sacrée",
+      "icone": "✨",
+      "degats": 12,
+      "xp": 4,
+      "description": "Projectile de lumière sacrée"
+    }
+  ]
+}

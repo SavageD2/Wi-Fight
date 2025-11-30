@@ -1,0 +1,144 @@
+{
+  "nom": "🔮 Magicien",
+  "classe": "Wizard",
+  "description": "Invocateur de familiers avec récupération de mana conditionnelle",
+  "stats": {
+    "hp_max": 500,
+    "mp_max": 450,
+    "attack": 250,
+    "defense": 300,
+    "endurance": 1500,
+    "niveau": 1
+  },
+  "passif": {
+    "type": "recuperation_mana_familier",
+    "valeur": 10,
+    "description": "Récupère +10 MP lors de l'invocation d'un familier"
+  },
+  "skills": [
+    {
+      "id": "mage_psyche",
+      "nom": "Psyche de la sphère d'Aad",
+      "type": "buff",
+      "icone": "🔵",
+      "mp_cost": 0,
+      "cooldown": 4,
+      "description": "Augmente l'attaque, réduit les dégâts et récupère du mana",
+      "heal_mp": 80,
+      "effets": [
+        {
+          "type": "buff",
+          "stat": "attack",
+          "valeur": 20,
+          "duree": 4
+        },
+        {
+          "type": "buff",
+          "stat": "reduction_degats",
+          "valeur": 15,
+          "duree": 4
+        }
+      ]
+    },
+    {
+      "id": "mage_defense",
+      "nom": "Defense Techtonique",
+      "type": "buff",
+      "icone": "🛡️",
+      "mp_cost": 60,
+      "cooldown": 3,
+      "description": "Crée un mur protecteur qui réduit les dégâts",
+      "effets": [
+        {
+          "type": "buff",
+          "stat": "reduction_degats",
+          "valeur": 30,
+          "duree": 3
+        }
+      ]
+    },
+    {
+      "id": "mage_invocation",
+      "nom": "Invocation Familier",
+      "type": "invocation",
+      "icone": "🐉",
+      "mp_cost": 80,
+      "cooldown": 5,
+      "description": "Invoque un gardien élémentaire",
+      "familier_choice": true,
+      "familiers": [
+        {
+          "nom": "Gardien Gorr",
+          "element": "terre",
+          "degats": 10,
+          "duree": 6
+        },
+        {
+          "nom": "Gardien Tett",
+          "element": "foudre",
+          "degats": 10,
+          "duree": 6
+        }
+      ]
+    },
+    {
+      "id": "mage_inondation",
+      "nom": "Innondation toxique",
+      "type": "zone",
+      "icone": "🌊",
+      "mp_cost": 90,
+      "cooldown": 4,
+      "description": "Crée une zone de poison acide au sol",
+      "zone": {
+        "degats": 15,
+        "intervalle": 1,
+        "duree": 6,
+        "debuff": {
+          "stat": "reduction_degats",
+          "valeur": -20
+        }
+      }
+    },
+    {
+      "id": "mage_dernier_recours",
+      "nom": "Dernier recours",
+      "type": "evasion",
+      "icone": "💨",
+      "mp_cost": 50,
+      "cooldown": 20,
+      "description": "Évasion d'urgence pour échapper au danger"
+    },
+    {
+      "id": "mage_barrage",
+      "nom": "Barrage d'éclair",
+      "type": "attaque_legere",
+      "icone": "⚡",
+      "mp_cost": 40,
+      "degats": 10,
+      "cooldown": 3,
+      "description": "Attaque légère qui invoque automatiquement le Gardien Tett",
+      "auto_invocation": {
+        "nom": "Gardien Tett",
+        "element": "foudre",
+        "degats": 10,
+        "duree": 6
+      }
+    },
+    {
+      "id": "mage_vague",
+      "nom": "Vague de fissure",
+      "type": "attaque_lourde",
+      "icone": "🌋",
+      "mp_cost": 100,
+      "degats": 50,
+      "cooldown": 5,
+      "description": "Attaque lourde qui invoque automatiquement le Gardien Gorr",
+      "auto_invocation": {
+        "nom": "Gardien Gorr",
+        "element": "terre",
+        "degats": 10,
+        "duree": 6
+      }
+    }
+  ]
+}

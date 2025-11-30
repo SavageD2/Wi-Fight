@@ -1,0 +1,27 @@
+{
+  "nom": "💀 Roi Sorcier d'Angmar",
+  "description": "Le chef des Nazgûl, serviteur de Sauron",
+  "frappes": [
+    {
+      "nom": "Lame Maudite",
+      "icone": "🗡️",
+      "degats": 18,
+      "xp": 7,
+      "description": "Attaque avec une lame ensorcelée"
+    },
+    {
+      "nom": "Souffle des Ténèbres",
+      "icone": "🌑",
+      "degats": 16,
+      "xp": 6,
+      "description": "Souffle glacial des ténèbres"
+    },
+    {
+      "nom": "Cri Spectral",
+      "icone": "👻",
+      "degats": 14,
+      "xp": 5,
+      "description": "Cri perçant qui glace le sang"
+    }
+  ]
+}
