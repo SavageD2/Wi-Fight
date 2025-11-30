@@ -29,9 +29,11 @@ class Menu:
         print("\n" + "="*70)
         
         while True:
-            choice = input("\nVotre choix (1-4) : ").strip()
+            choice = input("\nVotre choix (1-4) : ")
+
             if choice in ['1', '2', '3', '4']:
                 return choice
+            
             print("❌ Choix invalide !")
     
     @staticmethod
@@ -64,11 +66,16 @@ class Menu:
     @staticmethod
     def ask_player_name(player_class: str) -> str:
         """Demande le nom du joueur après le choix de la classe"""
-        icon = "🧙" if player_class == 'sage' else "🔮"
-        print(f"\n✨ Vous avez choisi : {icon} {player_class.title()}")
+        if player_class == 'sage':
+            character = Sage()
+            icon = "🧙"
+        else:
+            character = Magicien()
+            icon = "🔮"
+        print(f"\n✨ Vous avez choisi : {icon} {character.nom}")
         
         while True:
-            name = input(f"\n📝 Quel est votre nom, {player_class.title()} ? ").strip()
+            name = input(f"\n📝 Quel est votre nom, {character.nom} ? ").strip()
             if name:
                 return name
             print("❌ Le nom ne peut pas être vide !")
@@ -84,7 +91,7 @@ class Menu:
             icon = "🔮"
         
         print("\n" + "="*70)
-        print(f"📖 DETAILS - {icon} {player_class.upper()}")
+        print(f"📖 DETAILS - {icon} {character.nom}")
         print("="*70)
         
         # Stats de base

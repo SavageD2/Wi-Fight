@@ -14,7 +14,7 @@ WiZ-Fight est un jeu de combat tour par tour mettant en scène deux mages légen
 ## 🧙 Les Personnages
 
 ### **Sage** - Maître des arcanes anciennes
-*Inspiré du Roi Sorcier de Black Desert Online*
+*Inspiré du Roi Sorcier de LotR*
 
 **Passif:** Récupération de mana automatique **+20 MP** par skill utilisé
 
@@ -43,7 +43,7 @@ WiZ-Fight est un jeu de combat tour par tour mettant en scène deux mages légen
 ---
 
 ### **Magicien** - Invocateur de familiers élémentaires
-*Inspiré du Magicien Blanc de Black Desert Online*
+*Inspiré du Magicien Blanc de LotR*
 
 **Passif:** Récupération de mana automatique **+20 MP** lors de l'invocation d'un familier
 
