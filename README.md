@@ -5,7 +5,7 @@
 
 ## 📖 Description du projet
 
-WiZ-Fight est un jeu de combat tour par tour mettant en scène deux mages légendaires inspirés de Black Desert Online. Le projet met en œuvre les concepts avancés de Programmation Orientée Objet en Python.
+WiZ-Fight est un jeu de combat tour par tour mettant en scène deux mages légendaires inspirés de Lord of the Rings et Black Desert Online. Le projet met en œuvre les concepts avancés de Programmation Orientée Objet en Python.
 
 **Créé pour Jean Christophe** 🎓 - Merci de nous avoir appris la POO !
 
